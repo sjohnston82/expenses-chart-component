@@ -7,6 +7,8 @@ import {
   Title,
   Tooltip,
   Legend,
+  TooltipPositionerFunction,
+  ChartType,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -37,6 +39,27 @@ ChartJS.register(
   Legend
 );
 
+declare module "chart.js" {
+  interface TooltipPositionerMap {
+    myCustomPositioner: TooltipPositionerFunction<ChartType>;
+  }
+}
+
+Tooltip.positioners.myCustomPositioner = function (elements, eventPosition) {
+  // A reference to the tooltip model
+
+  const tooltip = this;
+  /* ... */
+
+  return {
+    x: 0,
+    y: 0,
+    xAlign: "center",
+    yAlign: "top",
+    // You may also include xAlign and yAlign to override those tooltip options.
+  };
+};
+
 export const options = {
   responsive: true,
   plugins: {
@@ -50,7 +73,12 @@ export const options = {
     },
     tooltip: {
       displayColors: false,
+      // position: "myCustomPositioner",
+      xAlign: "center",
+      yAlign: "bottom",
+      // footerSpacing: 5,
       caretSize: 0,
+      caretPadding: 6,
       backgroundColor: "hsl(25, 47%, 15%)",
       callbacks: {
         title: function () {
