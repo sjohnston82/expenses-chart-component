@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -107,6 +107,12 @@ export const options = {
       },
     },
   },
+  layout: {
+    padding: {
+      top: 20,
+    },
+  },
+  maintainAspectRatio: false,
 };
 
 const labels = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
@@ -118,13 +124,12 @@ const Chart = () => {
     import("../../../data.json").then((data) => {
       setChartData(data.default);
     });
-
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   const backgroundColors = chartData.map((c) => {
     if (c.amount > 50) {
       return "hsl(186, 34%, 60%)";
@@ -154,7 +159,7 @@ const Chart = () => {
       },
     ],
   };
-  return <Bar options={options} data={data} />;
-}
+  return <Bar options={options} data={data} className="h-60" />;
+};
 
-export default Chart
+export default Chart;

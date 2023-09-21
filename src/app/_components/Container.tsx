@@ -10,7 +10,7 @@ type ChartData = {
 
 const Container = () => {
  
-  return <div className="w-[375px] h-[667px] px-4 py-14 bg-cream">
+  return <div className="w-[375px] h-[667px] px-4 py-[67px] bg-cream">
     <BalanceContainer />
     <ChartContainer />
   </div>;

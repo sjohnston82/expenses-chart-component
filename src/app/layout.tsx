@@ -2,7 +2,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 
-const dm_sans = DM_Sans({ subsets: ["latin"], weight: ["400", "700"] });
+const dm_sans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Expenses Chart Component",
