@@ -14,6 +14,7 @@ import {
   ChartEvent,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+// import ChartDataLabels from "chartjs-plugin-datalabels";
 
 type ChartData = {
   day: string;
@@ -41,12 +42,18 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+// ChartJS.register(ChartDataLabels);
 
 declare module "chart.js" {
   interface TooltipPositionerMap {
     myCustomPositioner: TooltipPositionerFunction<ChartType>;
   }
 }
+
+ChartJS.defaults.color = "hsl(28, 10%, 53%)";
+
+ChartJS.defaults.font.size = 11.5;
+ChartJS.defaults.font.weight = "300";
 
 export const options = {
   // turn cursor to point if chartElement (bar) is hovered by targeting the css of the event
@@ -64,14 +71,13 @@ export const options = {
     }
   },
   responsive: true,
+
   plugins: {
     legend: {
       position: "top" as const,
       display: false,
     },
-    labels: {
-      color: "hsl(25, 47%, 15%)",
-    },
+
     title: {
       display: false,
       text: "Chart.js Bar Chart",
@@ -81,6 +87,7 @@ export const options = {
       xAlign: "center" as const,
       yAlign: "bottom" as const,
       caretSize: 0,
+
       caretPadding: 6,
       backgroundColor: "hsl(25, 47%, 15%)",
       callbacks: {
@@ -111,20 +118,23 @@ export const options = {
       border: {
         display: false,
       },
+      ticks: {
+        padding: 8, // Increase the padding between bars and labels
+      },
     },
   },
   layout: {
     padding: {
-      top: 10,
+      top: 11,
+      // bottom: -2,
     },
   },
   maintainAspectRatio: false,
 };
 
-const labels = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
-
 const Chart = () => {
   const [chartData, setChartData] = useState<ChartData[]>([]);
+  const labels = chartData.map((d) => d.day);
 
   const fetchData = () => {
     import("../../../data.json").then((data) => {
@@ -160,15 +170,16 @@ const Chart = () => {
           return c.amount;
         }),
         backgroundColor: backgroundColors,
-        borderRadius: 3,
+        borderRadius: 4,
         hoverBackgroundColor: hoverBackgroundColors,
         borderSkipped: false,
+        barThickness: 32,
         color:
           "hsl(25.090909090909097, 47.41379310344826%, 45.490196078431374%)",
       },
     ],
   };
-  return <Bar options={options} data={data} className="h-52" />;
+  return <Bar options={options} data={data} className="h-[220px]" />;
 };
 
 export default Chart;
