@@ -69,6 +69,9 @@ export const options = {
       position: "top" as const,
       display: false,
     },
+    labels: {
+      color: "hsl(25, 47%, 15%)",
+    },
     title: {
       display: false,
       text: "Chart.js Bar Chart",
@@ -105,11 +108,14 @@ export const options = {
       grid: {
         display: false,
       },
+      border: {
+        display: false,
+      },
     },
   },
   layout: {
     padding: {
-      top: 20,
+      top: 10,
     },
   },
   maintainAspectRatio: false,
@@ -154,12 +160,15 @@ const Chart = () => {
           return c.amount;
         }),
         backgroundColor: backgroundColors,
-        borderRadius: 4,
+        borderRadius: 3,
         hoverBackgroundColor: hoverBackgroundColors,
+        borderSkipped: false,
+        color:
+          "hsl(25.090909090909097, 47.41379310344826%, 45.490196078431374%)",
       },
     ],
   };
-  return <Bar options={options} data={data} className="h-60" />;
+  return <Bar options={options} data={data} className="h-52" />;
 };
 
 export default Chart;
